@@ -1,7 +1,28 @@
-<button>RULES</button>
+<button id="show-button">RULES</button>
+
+<dialog id="rules-dialog">
+  <p id="rules-text">RULES</p>
+  <img id="close-button" src="/img/icon-close.svg" alt="Close icon" />
+  <img id="rules-img" src="/img/image-rules.svg" alt="Rules image" />
+</dialog>
+
+<script>
+  const showButton = document.querySelector('#show-button');
+  const closeButton = document.querySelector('#close-button');
+
+  showButton.addEventListener('click', () => {
+    const rulesDialog = document.querySelector('#rules-dialog');
+    rulesDialog.showModal();
+  });
+
+  closeButton.addEventListener('click', () => {
+    const rulesDialog = document.querySelector('#rules-dialog');
+    rulesDialog.close();
+  });
+</script>
 
 <style>
-  button {
+  #show-button {
     padding: 10px 40px;
     font-size: 16px;
     border: 1px solid white;
@@ -12,11 +33,71 @@
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
+    text-decoration: none;
   }
 
-  button:hover {
+  #show-button:hover {
     background-color: rgb(255, 255, 255, 0.3);
     color: white;
     cursor: pointer;
+  }
+
+  #rules-dialog {
+    align-content: center;
+  }
+
+  #close-button {
+    position: absolute;
+  }
+
+  #rules-text {
+    margin-top: 0;
+  }
+
+  @media (width > 375px) {
+    #rules-dialog {
+      border-radius: 10px;
+      padding: 25px 16px;
+    }
+
+    #rules-dialog::backdrop {
+      background: rgb(0, 0, 0, 0.4);
+    }
+
+    #rules-text {
+      font-size: 20px;
+    }
+
+    #close-button {
+      top: 30px;
+      right: 20px;
+      width: 16px;
+    }
+  }
+
+  @media (width <= 375px) {
+    #rules-text {
+      font-size: 30px;
+      text-align: center;
+    }
+
+    #rules-img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #rules-dialog {
+      height: 100%;
+      width: 100%;
+    }
+
+    #close-button {
+      bottom: 10%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+    }
   }
 </style>
