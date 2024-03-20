@@ -10,14 +10,14 @@
   const showButton = document.querySelector('#show-button');
   const closeButton = document.querySelector('#close-button');
 
-  showButton.addEventListener('click', () => {
-    const rulesDialog = document.querySelector('#rules-dialog');
-    rulesDialog.showModal();
+  showButton!.addEventListener('click', () => {
+    const rulesDialog = document.querySelector('#rules-dialog') as HTMLDialogElement;
+    rulesDialog!.showModal();
   });
 
-  closeButton.addEventListener('click', () => {
-    const rulesDialog = document.querySelector('#rules-dialog');
-    rulesDialog.close();
+  closeButton!.addEventListener('click', () => {
+    const rulesDialog = document.querySelector('#rules-dialog') as HTMLDialogElement;
+    rulesDialog!.close();
   });
 </script>
 
