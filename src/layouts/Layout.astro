@@ -1,0 +1,39 @@
+---
+import '@fontsource/barlow-semi-condensed/600.css';
+import '@fontsource/barlow-semi-condensed/700.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+
+    <style is:global>
+      body {
+        margin: 0;
+      }
+
+      html {
+        font-family: 'Barlow Semi Condensed', sans-serif;
+        background-image: radial-gradient(circle, #1f3756, #141539);
+        height: 100vh;
+      }
+    </style>
+  </body>
+</html>

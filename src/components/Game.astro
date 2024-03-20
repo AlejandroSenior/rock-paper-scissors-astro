@@ -1,0 +1,48 @@
+<div id="game">
+  <img src="/img/bg-triangle.svg" alt="Tringle" width="250px" />
+  <div id="rock" class="hand">
+    <img src="/img/icon-rock.svg" alt="Rock hand" />
+  </div>
+  <div id="paper" class="hand">
+    <img src="/img/icon-paper.svg" alt="Paper hand" />
+  </div>
+  <div id="scissors" class="hand">
+    <img src="/img/icon-scissors.svg" alt="Scissors hand" />
+  </div>
+</div>
+
+<style>
+  #game {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hand {
+    background-color: white;
+    padding: 20px;
+    border-radius: 50%;
+    border: 15px solid;
+    position: absolute;
+  }
+
+  #scissors {
+    border-color: yellow;
+    top: -50px;
+    right: -50px;
+  }
+
+  #paper {
+    border-color: blue;
+    top: -50px;
+    left: -50px;
+  }
+
+  #rock {
+    border-color: red;
+    left: 50%;
+    bottom: -100px;
+    transform: translate(-50%, -50%);
+  }
+</style>

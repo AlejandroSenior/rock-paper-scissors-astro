@@ -1,0 +1,41 @@
+<div id="banner">
+  <img src="/img/logo.svg" alt="Rock-paper-scissors logo" width="90px" />
+  <div id="score-box">
+    <p>SCORE</p>
+    <p>12</p>
+  </div>
+</div>
+
+<style>
+  p {
+    margin: 0;
+  }
+
+  #banner {
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 310px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  #score-box {
+    text-align: center;
+    background-color: white;
+    padding: 5px 25px;
+    border-radius: 5px;
+  }
+
+  #score-box > p:nth-child(1) {
+    font-size: 12px;
+  }
+
+  #score-box > p:nth-child(2) {
+    font-size: 40px;
+    font-weight: 700;
+  }
+</style>
