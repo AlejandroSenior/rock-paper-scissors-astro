@@ -20,9 +20,14 @@
       </div>
     </div>
 
+    <div id="result-div" class="hidden">
+      <p id="result-text"></p>
+      <button id="play-again-button">PLAY AGAIN</button>
+    </div>
+
     <div>
       <p>THE HOUSE PICKED</p>
-      <div id="house-hand-div">
+      <div id="house-hand-div" class="house-hand-not-selected">
         <img id="house-picked-hand" alt="Picked hand" class="hidden" />
       </div>
     </div>
@@ -30,15 +35,37 @@
 </div>
 
 <script>
-  const hands = document.querySelectorAll('.hand');
+  const handTypes = [
+    { type: 'rock', color: 'red', winsTo: ['scissors'] },
+    { type: 'paper', color: 'blue', winsTo: ['rock'] },
+    { type: 'scissors', color: 'yellow', winsTo: ['paper'] }
+  ];
+  const handElements = document.querySelectorAll('.hand');
 
-  hands.forEach((hand) => {
+  handElements.forEach((hand) => {
     hand.addEventListener('click', () => {
       document.getElementById('select-hand')?.classList.add('hidden');
       document.getElementById('picked-div')?.classList.remove('hidden');
       document.getElementById('picked-div')?.classList.add('picked-grid');
       document.getElementById('picked-hand')?.setAttribute('src', `/img/icon-${hand.id}.svg`);
       document.getElementById('picked-hand-div')!.style.borderColor = hand.getAttribute('data-handColor')!;
+
+      setTimeout(() => {
+        const randomPosition = Math.floor(Math.random() * 3);
+        document.getElementById('house-hand-div')?.classList.remove('house-hand-not-selected');
+        document.getElementById('house-hand-div')?.classList.add('hand');
+        document.getElementById('house-hand-div')!.style.borderColor = handTypes[randomPosition].color;
+        document.getElementById('house-picked-hand')?.classList.remove('hidden');
+        document.getElementById('house-picked-hand')?.setAttribute('src', `/img/icon-${handTypes[randomPosition].type}.svg`);
+        document.getElementById('result-div')!.classList.remove('hidden');
+        document.getElementById('picked-div')!.style.gridTemplateColumns = '1fr 1fr 1fr';
+        document.getElementById('picked-div')!.style.gap = '0px';
+
+        if (handTypes[randomPosition].winsTo.includes(hand.id)) {
+          document.getElementById('result-text')!.innerHTML += 'YOU LOSE';
+        } else if (handTypes[randomPosition].type === hand.id) document.getElementById('result-text')!.innerHTML = 'TIE';
+        else document.getElementById('result-text')!.innerHTML += 'YOU WIN';
+      }, 3000);
     });
   });
 </script>
@@ -61,6 +88,8 @@
     border-radius: 50%;
     border: 15px solid;
     position: absolute;
+    max-width: 60px;
+    max-height: 60px;
   }
 
   .hand:hover {
@@ -95,6 +124,7 @@
     gap: 100px;
     color: white;
     text-align: center;
+    justify-items: center;
   }
 
   #picked-hand-div {
@@ -102,13 +132,32 @@
     padding: 20px;
     border-radius: 50%;
     border: 15px solid;
+    max-width: 60px;
+    max-height: 60px;
   }
 
-  #house-hand-div {
+  .house-hand-not-selected {
     width: 100px;
     height: 100px;
     background-color: rgb(0, 0, 0, 0.2);
     border-radius: 100%;
     margin-top: 35px;
+  }
+
+  #result-div {
+    align-self: center;
+  }
+
+  #result-text {
+    font-size: 40px;
+    margin: 0 0 10px 0;
+  }
+
+  #play-again-button {
+    padding: 10px 40px;
+    font-size: 14px;
+    border-radius: 10px;
+    color: #1f3756;
+    background-color: white;
   }
 </style>
