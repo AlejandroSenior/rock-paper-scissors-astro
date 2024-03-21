@@ -1,15 +1,47 @@
 <div id="game">
-  <img src="/img/bg-triangle.svg" alt="Tringle" width="250px" />
-  <div id="rock" class="hand">
-    <img src="/img/icon-rock.svg" alt="Rock hand" />
+  <div id="select-hand">
+    <img src="/img/bg-triangle.svg" alt="Tringle" width="250px" />
+    <div id="rock" class="hand" data-handColor="red">
+      <img src="/img/icon-rock.svg" alt="Rock hand" />
+    </div>
+    <div id="paper" class="hand" data-handColor="blue">
+      <img src="/img/icon-paper.svg" alt="Paper hand" />
+    </div>
+    <div id="scissors" class="hand" data-handColor="yellow">
+      <img src="/img/icon-scissors.svg" alt="Scissors hand" />
+    </div>
   </div>
-  <div id="paper" class="hand">
-    <img src="/img/icon-paper.svg" alt="Paper hand" />
-  </div>
-  <div id="scissors" class="hand">
-    <img src="/img/icon-scissors.svg" alt="Scissors hand" />
+
+  <div id="picked-div" class="hidden">
+    <div>
+      <p>YOU PICKED</p>
+      <div id="picked-hand-div">
+        <img id="picked-hand" alt="Picked hand" />
+      </div>
+    </div>
+
+    <div>
+      <p>THE HOUSE PICKED</p>
+      <div id="house-hand-div">
+        <img id="house-picked-hand" alt="Picked hand" class="hidden" />
+      </div>
+    </div>
   </div>
 </div>
+
+<script>
+  const hands = document.querySelectorAll('.hand');
+
+  hands.forEach((hand) => {
+    hand.addEventListener('click', () => {
+      document.getElementById('select-hand')?.classList.add('hidden');
+      document.getElementById('picked-div')?.classList.remove('hidden');
+      document.getElementById('picked-div')?.classList.add('picked-grid');
+      document.getElementById('picked-hand')?.setAttribute('src', `/img/icon-${hand.id}.svg`);
+      document.getElementById('picked-hand-div')!.style.borderColor = hand.getAttribute('data-handColor')!;
+    });
+  });
+</script>
 
 <style>
   #game {
@@ -19,12 +51,23 @@
     transform: translate(-50%, -50%);
   }
 
+  .hidden {
+    display: none;
+  }
+
   .hand {
     background-color: white;
     padding: 20px;
     border-radius: 50%;
     border: 15px solid;
     position: absolute;
+  }
+
+  .hand:hover {
+    transition: transform 0.5s;
+    -ms-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
   }
 
   #scissors {
@@ -41,8 +84,31 @@
 
   #rock {
     border-color: red;
-    left: 50%;
-    bottom: -100px;
-    transform: translate(-50%, -50%);
+    left: 25%;
+    bottom: -50px;
+  }
+
+  /* Picked */
+  .picked-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    color: white;
+    text-align: center;
+  }
+
+  #picked-hand-div {
+    background-color: white;
+    padding: 20px;
+    border-radius: 50%;
+    border: 15px solid;
+  }
+
+  #house-hand-div {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(0, 0, 0, 0.2);
+    border-radius: 100%;
+    margin-top: 35px;
   }
 </style>
