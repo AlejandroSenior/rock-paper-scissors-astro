@@ -1,10 +1,40 @@
 <div id="banner">
   <img id="logo" src="/img/logo.svg" alt="Rock-paper-scissors logo" width="90px" />
   <div id="score-box">
-    <p>SCORE</p>
-    <p>0</p>
+    <p id="score-text">SCORE</p>
+    <p id="score">0</p>
   </div>
 </div>
+
+<script>
+  // Get score from localStorage if exists
+  document.getElementById('score')!.innerText = localStorage.getItem('score') || '0';
+
+  // Update score with localStorage value
+  const updateDisplay = () => {
+    document.getElementById('score')!.innerText = localStorage.getItem('score') || '0';
+  };
+
+  window.addEventListener('scoreUpdated', updateDisplay);
+
+  // Show reset text if hover score box
+  document.getElementById('score-box')?.addEventListener('mouseover', () => {
+    document.getElementById('score-text')!.textContent = 'RESET';
+    document.getElementById('score')!.textContent = '0';
+  });
+
+  // Show normal text if mouseout from score box
+  document.getElementById('score-box')?.addEventListener('mouseout', () => {
+    document.getElementById('score-text')!.textContent = 'SCORE';
+    updateDisplay();
+  });
+
+  // Reset score if click on score box
+  document.getElementById('score-box')?.addEventListener('click', () => {
+    localStorage.setItem('score', '0');
+    updateDisplay();
+  });
+</script>
 
 <style>
   p {
@@ -32,6 +62,7 @@
     background-color: white;
     padding: 5px 25px;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   #score-box > p:nth-child(1) {

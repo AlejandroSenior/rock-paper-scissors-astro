@@ -70,7 +70,12 @@
         if (handTypes[randomPosition].winsTo.includes(hand.id)) {
           document.getElementById('result-text')!.innerHTML = 'YOU LOSE';
         } else if (handTypes[randomPosition].type === hand.id) document.getElementById('result-text')!.innerHTML = 'TIE';
-        else document.getElementById('result-text')!.innerHTML = 'YOU WIN';
+        else {
+          const currentScore = parseInt(localStorage.getItem('score') || '0', 10);
+          localStorage.setItem('score', (currentScore + 1).toString());
+          window.dispatchEvent(new CustomEvent('scoreUpdated'));
+          document.getElementById('result-text')!.innerHTML = 'YOU WIN';
+        }
       }, 3000);
     });
 
