@@ -13,7 +13,7 @@
   </div>
 
   <div id="picked-div" class="hidden">
-    <div>
+    <div id="you-picked-div">
       <p>YOU PICKED</p>
       <div id="picked-hand-div">
         <img id="picked-hand" alt="Picked hand" />
@@ -25,7 +25,7 @@
       <button id="play-again-button">PLAY AGAIN</button>
     </div>
 
-    <div>
+    <div id="house-picked-div">
       <p>THE HOUSE PICKED</p>
       <div id="house-hand-div" class="house-hand-not-selected">
         <img id="house-picked-hand" alt="Picked hand" class="hidden" />
@@ -41,6 +41,7 @@
     { type: 'scissors', color: 'yellow', winsTo: ['paper'] }
   ];
   const handElements = document.querySelectorAll('.hand');
+  const mediaQuery = window.matchMedia('(max-width: 640px)');
 
   handElements.forEach((hand) => {
     hand.addEventListener('click', () => {
@@ -53,19 +54,41 @@
       setTimeout(() => {
         const randomPosition = Math.floor(Math.random() * 3);
         document.getElementById('house-hand-div')?.classList.remove('house-hand-not-selected');
-        document.getElementById('house-hand-div')?.classList.add('hand');
+        document.getElementById('house-hand-div')?.classList.add('house-hand');
         document.getElementById('house-hand-div')!.style.borderColor = handTypes[randomPosition].color;
         document.getElementById('house-picked-hand')?.classList.remove('hidden');
         document.getElementById('house-picked-hand')?.setAttribute('src', `/img/icon-${handTypes[randomPosition].type}.svg`);
         document.getElementById('result-div')!.classList.remove('hidden');
-        document.getElementById('picked-div')!.style.gridTemplateColumns = '1fr 1fr 1fr';
-        document.getElementById('picked-div')!.style.gap = '0px';
+
+        // Check if is mobile/tablet
+        if (mediaQuery.matches) document.getElementById('picked-div')!.style.gap = '10px';
+        else {
+          document.getElementById('picked-div')!.style.gap = '20px';
+          document.getElementById('picked-div')!.style.gridTemplateColumns = 'repeat(3, 1fr)';
+        }
 
         if (handTypes[randomPosition].winsTo.includes(hand.id)) {
-          document.getElementById('result-text')!.innerHTML += 'YOU LOSE';
+          document.getElementById('result-text')!.innerHTML = 'YOU LOSE';
         } else if (handTypes[randomPosition].type === hand.id) document.getElementById('result-text')!.innerHTML = 'TIE';
-        else document.getElementById('result-text')!.innerHTML += 'YOU WIN';
+        else document.getElementById('result-text')!.innerHTML = 'YOU WIN';
       }, 3000);
+    });
+
+    document.getElementById('play-again-button')?.addEventListener('click', () => {
+      document.getElementById('result-div')!.classList.add('hidden');
+      document.getElementById('select-hand')!.classList.remove('hidden');
+      document.getElementById('picked-div')!.classList.remove('picked-grid');
+      document.getElementById('picked-div')!.classList.add('hidden');
+      document.getElementById('house-hand-div')?.classList.add('house-hand-not-selected');
+      document.getElementById('house-hand-div')?.classList.remove('house-hand');
+      document.getElementById('house-picked-hand')?.classList.add('hidden');
+
+      // Check if is mobile/tablet
+      if (mediaQuery.matches) document.getElementById('picked-div')!.style.gap = '50px';
+      else {
+        document.getElementById('picked-div')!.style.gap = '100px';
+        document.getElementById('picked-div')!.style.gridTemplateColumns = 'repeat(2, 1fr)';
+      }
     });
   });
 </script>
@@ -82,6 +105,7 @@
     display: none;
   }
 
+  .house-hand,
   .hand {
     background-color: white;
     padding: 20px;
@@ -117,11 +141,16 @@
     bottom: -50px;
   }
 
+  #picked-hand-div,
+  #house-hand-div {
+    margin: 0 auto;
+  }
+
   /* Picked */
   .picked-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 100px;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 50px;
     color: white;
     text-align: center;
     justify-items: center;
@@ -159,5 +188,12 @@
     border-radius: 10px;
     color: #1f3756;
     background-color: white;
+  }
+
+  @media (width > 640px) {
+    .picked-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 100px;
+    }
   }
 </style>
