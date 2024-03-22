@@ -101,7 +101,7 @@
 <style>
   #game {
     position: absolute;
-    top: 50%;
+    top: 43%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
@@ -196,6 +196,10 @@
   }
 
   @media (width > 640px) {
+    #game {
+      top: 50%;
+    }
+
     .picked-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 100px;
