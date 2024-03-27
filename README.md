@@ -1,13 +1,14 @@
 <a name="readme-top"></a>
 
 <div align=center">
-<a href="https://space-tourism-astro-nine.vercel.app">
+<a href="https://rock-paper-scissors-astro.vercel.app">
   <img src="./public/img/presentation.avif" alt="Presentation" />
 </a>
 
-## Landing of space tourism
+## Rock Paper Scissors
 
 Website where you can play the famous rock-paper-scissors game against the machine and see in the score how many times you beat it.
+
 </div>
 
 ## 🛠️ Stack
